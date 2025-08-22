@@ -1,0 +1,457 @@
+:root {
+  --gutter: 150px;  /* reduced from 300px */
+  --bg-color: #D8F0F5;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-color);
+  font-family: "Playfair Display", serif; /* Use Playfair Display everywhere */
+}
+
+.bounded {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* Header */
+.site-header {
+  background: var(--bg-color);
+  padding: 20px 0;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* pushes nav to the right edge of the bounded area */
+}
+
+.site-header__image img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.site-header__nav {
+  display: flex;
+  gap: 14px;
+}
+
+.link-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;                 /* pill-shaped */
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+
+  background: #000;                     /* solid black background */
+  color: #fff;                          /* white text */
+  border: 2px solid #000;               /* black border */
+  transition: all 0.2s ease;
+}
+
+.link-btn:hover {
+  background: transparent;              /* invert on hover */
+  color: #000;
+}
+
+/* ================= HERO ================= */
+.hero {
+  position: relative;
+  background: var(--bg-color);     /* fallback color */
+  padding: 48px 0;
+  overflow: hidden;                /* keep bg pseudo-element contained */
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;                        /* full-bleed */
+  background: url("../images/v19_74.png") center / cover no-repeat;
+  opacity: 0.3;                    /* 30% opacity */
+  z-index: 0;                      /* behind content */
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;                      /* above background */
+  min-height: 360px;               /* gives room to vertically center nicely */
+  display: flex;
+  align-items: center;             /* vertical center */
+  justify-content: center;         /* horizontal center */
+  text-align: center;              /* center text lines */
+}
+
+.hero__title {
+  font-size: clamp(28px, 4vw, 48px);
+  margin: 0 0 12px;
+  font-family: "Playfair Display", serif;
+}
+
+.hero__subtitle {
+  margin: 0 0 24px;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.5;
+}
+
+/* Single CTA button */
+.cta {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  text-transform: uppercase;      /* ALL CAPS */
+  letter-spacing: 0.06em;
+  transition: all 0.2s ease;
+}
+
+.cta--primary {
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+}
+
+.cta--primary:hover {
+  background: transparent;
+  color: #000;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .hero { padding: 28px 0; }
+  .cta { padding: 10px 18px; font-size: 15px; }
+}
+/* ================= INTRO ================= */
+.intro { padding: 40px 0 24px; }
+
+.intro__inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr; /* text / image */
+  align-items: center;
+  gap: 24px;
+}
+
+.intro__text p {
+  margin: 0 0 12px;
+  font-size: 18px;         /* was 16px */
+  line-height: 1.6;
+  color: rgba(0,0,0,0.85);
+}
+
+/* Image right, right-justified within its column */
+.intro__image {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.intro__image img {
+  display: block;
+  width: 80%;              /* shrink to 80% of its column */
+  max-width: 520px;        /* keep an upper bound (optional) */
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px) {
+  .intro__inner { grid-template-columns: 1fr; }
+  .intro__image { justify-content: flex-start; }
+  .intro__image img { width: 100%; }  /* full width on small screens */
+}
+
+
+
+
+
+/* Section spacing; gutters come from the .bounded inner wrapper */
+.highlights { padding: 40px 0 0; }
+
+/* Grid lives inside the bounded wrapper so gutters are guaranteed */
+.highlights__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Card: rounded top only; no bottom radius; padding L/T/R, none on bottom */
+.card {
+  position: relative;
+  background: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  overflow: hidden;                 /* clip bg image to rounded top */
+  padding: 16px 16px 0;             /* L/T/R padding, NO bottom padding */
+  min-height: 220px;
+
+  /* center text horizontally & vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Background image cropped + 25% opacity */
+.card .card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+  z-index: 0;
+}
+
+.card__title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.25;
+  font-family: "Playfair Display", serif;
+  color: #000;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .highlights__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .highlights__grid { grid-template-columns: 1fr; }
+  .card { min-height: 200px; }
+}
+
+
+
+
+/* ================= DETAILS (text boxes; connect to image row above) ================= */
+.details { padding: 0 0 8px; }  /* tight bottom so timeline sits closer */
+
+.details__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px; /* aligns with image boxes above */
+}
+
+/* Square top corners to connect; rounded bottoms; small top buffer */
+.detail {
+  background: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+
+  padding: 8px 16px 16px;     /* small top pad + L/R/B padding */
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* left align text */
+  justify-content: flex-start;
+  text-align: left;
+
+  border-top: 1px solid #000; /* thin top rule */
+}
+
+.detail__text {
+  margin: 0 0 10px;
+  color: rgba(0,0,0,0.85);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.detail__list {
+  margin: 0 0 10px 1.2em;
+  padding: 0;
+  color: rgba(0,0,0,0.85);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .details__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .details__grid { grid-template-columns: 1fr; }
+  .detail { min-height: 200px; }
+}
+
+
+
+/* ================= TIMELINE ================= */
+.timeline { padding: 0 0 72px; }   /* a bit more bottom space before footer */
+
+.timeline__inner { position: relative; overflow: visible; }
+
+.timeline__track {
+  /* Layout + sizing */
+  --col-gap: 24px;
+  --dot-size: 14px;
+  --line-thickness: 2px;
+  --logo-h: 30px;
+  --bubble-h: 85px;         /* half-height bubbles */
+  --line-y: 78px;           /* vertical position of the line from the top */
+
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--col-gap);
+
+  /* space: small above; enough below to fully contain logos + bubbles */
+  padding-top: 10px;  /* tighter top spacing */
+  /* FIX: include var(--line-y) so absolute elements are contained */
+  padding-bottom: calc(var(--line-y) + 28px + var(--logo-h) + 16px + var(--bubble-h) + 24px);
+}
+
+/* Connector line per item so it stops at the first/last dot centers */
+.timeline__item {
+  position: relative;
+  text-align: center;
+  z-index: 1; /* above connectors */
+}
+.timeline__item::after {
+  content: "";
+  position: absolute;
+  top: var(--line-y);
+  left: 50%;
+  transform: translateY(-50%);
+  height: var(--line-thickness);
+  width: calc(100% + var(--col-gap)); /* center→next center distance */
+  background: rgba(0,0,0,0.2);
+  z-index: 0; /* behind the dot */
+}
+.timeline__item:last-child::after { content: none; } /* no connector after last */
+
+/* Dot centered ON the line */
+.timeline__dot {
+  position: absolute;
+  top: var(--line-y);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  z-index: 2; /* above the connector line */
+}
+
+/* Year ABOVE the line */
+.timeline__year {
+  position: absolute;
+  top: calc(var(--line-y) - 32px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}
+
+/* Logo just BELOW the line */
+.timeline__logo {
+  position: absolute;
+  top: calc(var(--line-y) + 28px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.timeline__logo img {
+  display: block;
+  height: var(--logo-h);
+  width: auto;
+  object-fit: contain;
+}
+
+/* Bubble BELOW the logos — uniform height, grey, with shadow */
+.timeline__bubble {
+  position: absolute;
+  top: calc(var(--line-y) + 28px + var(--logo-h) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  max-width: 360px;
+  height: var(--bubble-h);
+
+  padding: 12px 14px;
+  background: #ccc;                        /* darker grey interior */
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.16);
+
+  color: #000;
+  font-size: 12px;
+  line-height: 1.45;
+
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Responsive: allow horizontal scroll if needed */
+@media (max-width: 900px) {
+  .timeline__inner { overflow-x: auto; }
+  .timeline__track { min-width: 720px; }
+}
+
+
+
+/* ================= FOOTER ================= */
+.site-footer {
+  background: var(--bg-color);
+  border-top: 1px solid rgba(0,0,0,0.12);
+  padding: 25px 0 28px;
+  margin-top: 100px;
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: flex-end;      /* push content to the right within gutters */
+  align-items: center;
+}
+
+.site-footer__right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                       /* space between name and icon */
+}
+
+.site-footer__name {
+  font-family: "Playfair Display", serif;
+  font-size: 14px;                /* smaller, professional */
+  font-weight: 600;
+  color: rgba(0,0,0,0.65);        /* muted */
+}
+
+/* Small LinkedIn icon, no pill/button */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;                    /* compact */
+  height: 22px;
+  text-decoration: none;
+}
+
+.social-link__icon {
+  width: 18px;                    /* smaller logo */
+  height: 18px;
+  display: block;
+  fill: #0A66C2;                  /* LinkedIn blue */
+  transition: transform .15s ease, opacity .15s ease;
+}
+
+.social-link:hover .social-link__icon {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
